@@ -49,7 +49,11 @@
       const view = new MapView({
         container: "viewDiv",
         map: webmap,
-        zoom: 2
+        zoom: 2,
+        constraints: {
+            minZoom: 2,
+            maxZoom: 20
+        }
       });
 
       view.when(() => {
