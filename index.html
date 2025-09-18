@@ -17,12 +17,13 @@
       overflow: hidden;
     }
 
-    .esri-popup {
-      border-radius: 12px;
-      background: #fdf6e3;
+    .esri-popup__main-container {
+      border-radius: 8px;
       font-size: 14px;
       color: #333;
     }
+
+
 
     .esri-popup__main-container::after {
       content: "";
@@ -33,16 +34,29 @@
       border-style: solid;
       border-color: #fdf6e3 transparent transparent transparent;
     }
+
+
+    #legendDiv {
+        width: fit-content;
+        height: fit-content;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 8px;
+    }
+
+
+
   </style>
 </head>
 <body>
   <div id="viewDiv"></div>
+  <div id="legendDiv"></div>
 
   <script>
     require([
       "esri/WebMap",
-      "esri/views/MapView"
-    ], function(WebMap, MapView) {
+      "esri/views/MapView",
+      "esri/widgets/Legend"
+    ], function(WebMap, MapView, Legend) {
       const webmap = new WebMap({
         portalItem: { id: "258554033c8c4f7a82e3cfc1b4a9d88c" }
       });
@@ -85,7 +99,8 @@
                 const attrs = feature.graphic.attributes;
 
                 let html = `
-                    <div style="font-family:Raleway, sans-serif; font-size:14px;">
+                    <div style="font-family:Raleway, sans-serif; 
+                    font-size:14px;">
                         <b>City:</b> ${attrs.City}<br><br>
                         <b>Country:</b> ${attrs.Country_Written}<br><br>
                         <b>What inspired you to sign up?:</b> ${attrs.Inspiration}<br><br>
@@ -101,6 +116,18 @@
               
           };
         });
+
+        const legend = new Legend({
+            view: view,
+            container: "legendDiv",
+            style: {
+                type: "classic",
+                layout: "auto"
+            }
+        });
+
+        view.ui.add(legend, "bottom-left");
+        
       });
     });
   </script>
