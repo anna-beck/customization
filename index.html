@@ -64,9 +64,13 @@
       const view = new MapView({
         container: "viewDiv",
         map: webmap,
-        zoom: 2,
+        background: {
+            color: [29, 106, 160, 1]
+        },
+        center: [0, 0],
+        zoom: 1,
         constraints: {
-            minZoom: 2,
+            minZoom: 1,
             maxZoom: 20,
             rotationEnabled: false
         }
